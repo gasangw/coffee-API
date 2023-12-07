@@ -7,17 +7,20 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
+import { CoffeesService } from './coffees.service';
 
 @Controller('coffees')
 export class CoffeesController {
+  constructor(private readonly coffeeService: CoffeesService) {}
   @Get()
   findAll() {
-    return 'This action returns all coffees';
+    // const { limit, offset } = paginationQuery;
+    return this.coffeeService.findAll();
   }
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return `this returns coffee with id of ${id}`;
+    return this.coffeeService.findOne(id);
   }
 
   @Post()
