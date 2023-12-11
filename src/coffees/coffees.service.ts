@@ -30,7 +30,13 @@ export class CoffeesService {
     return this.coffeeRepository.save(coffee);
   }
 
-  update(id: string, UpdateCoffeeDto: CreateCoffeeDto) {
-    return this.coffeeRepository.update(id, UpdateCoffeeDto);
+  async update(id: string, UpdateCoffeeDto: CreateCoffeeDto) {
+    const coffee = await this.coffeeRepository.preload({
+      id: parseInt(id),
+      ...UpdateCoffeeDto,
+    });
+    if (!coffee) {
+      throw new NotFoundException(`Coffee #${id} not found`);
+    }
   }
 }
