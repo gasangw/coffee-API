@@ -27,16 +27,16 @@ export class CoffeesController {
 
   @Post()
   create(@Body() body: CreateCoffeeDto) {
-    return body;
+    return this.coffeeService.create(body);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() body: UpdateCoffeeDto) {
-    return `this updates coffee with id of ${id} with the body ${body}`;
+    return this.coffeeService.update(id, body);
   }
 
   @Delete(':id')
   removeCoffee(@Param('id') id: string) {
-    return `this removes coffee with id of ${id}`;
+    return this.coffeeService.removeCoffee(id);
   }
 }
